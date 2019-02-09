@@ -9,21 +9,32 @@ def fileExists():
     else:
         return False
 
-# Load the list from memory
-def loadFromMemory(self):
-    if fileExists():
-        file = open(self.__fileName, "rb")
-        list = pickle.load(file)
+def createFile():
+    try:
+        file = open(fileName, "x")
         file.close()
-        return list
-    else:
-        raise Exception("Todolist file doesn't exist.")
+        return True
+    except FileExistsError:
+        return False
+    
+
+# Load the list from memory
+def loadFromMemory():
+    if fileExists():
+        if os.path.getsize(fileName) > 0:
+            file = open(fileName, "rb")
+            list = pickle.load(file)
+            file.close()
+            return list
+        else: 
+            return []
 
 # Save the list to memory
-def saveToMemory(self, list):
+def saveToMemory(list):
     if fileExists():
-        file = open(self.__fileName, "wb")
+        file = open(fileName, "wb")
         pickle.dump(list, file)
         file.close()        
+        return True
     else:
-        raise Exception("Todolist file doesn't exist.")
+        return False 
