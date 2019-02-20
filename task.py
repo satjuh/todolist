@@ -4,10 +4,11 @@ class Task:
         self.id = id
         self.deadline = deadline
         self.name = name
-    
+
     def getDescription(self):
         return self.description
-        
+
+    # Task id is 
     def getId(self):
         return self.id
 
@@ -16,6 +17,3 @@ class Task:
 
     def getName(self):
         return self.name
-    
-        
-        

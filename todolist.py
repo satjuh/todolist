@@ -9,7 +9,11 @@ if __name__ == "__main__":
     manager = ManageList()
 
     if (options.dotask):
-        manager.completeTask()
+        if manager.completeTask(options.dotask):
+            print("Completed give task.")
+        else:
+            print("No such course or tasknumber")
+        
     elif(options.addcourse):
         if manager.addCourse(options.addcourse):
             print("Successfully added", options.addcourse)
@@ -24,7 +28,8 @@ if __name__ == "__main__":
         else:
             print(options.addtask)
             print("Wrong date format")
-    elif (options.list):
+ 
+    elif(options.list):
         manager.getTasks()
     
     manager.save()
