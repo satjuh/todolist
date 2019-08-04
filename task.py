@@ -8,7 +8,7 @@ class Task:
     def getDescription(self):
         return self.description
 
-    # Task id is 
+    # Task id is
     def getId(self):
         return self.id
 

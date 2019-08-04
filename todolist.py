@@ -1,36 +1,31 @@
 #!/usr/bin/python3
 from manageList import ManageList
-from regex import checkDate 
+from regex import checkDate
 import parser
 
 
 if __name__ == "__main__":
-    options, args = parser.parse()    
+    options, args = parser.parse()
     manager = ManageList()
 
     if (options.dotask):
-        if manager.completeTask(options.dotask):
-            print("Completed give task.")
-        else:
-            print("No such course or tasknumber")
-        
+        manager.completeTask(options.dotask)
     elif(options.addcourse):
-        if manager.addCourse(options.addcourse):
-            print("Successfully added", options.addcourse)
-        else:
-            print("Course already in todolist")
+        manager.addCourse(options.addcourse)
     elif (options.addtask):
-        if (checkDate(options.addtask[2])):
-            if manager.addTask(options.addtask):
-                print("Succesfully added")
-            else:
-                print("No course called {}.".format(options.addtask[0]))
+        if (checkDate(options.addtask[1])):
+            manager.addTask(options.addtask)
         else:
             print(options.addtask)
             print("Wrong date format")
- 
+
     elif(options.list):
         manager.getTasks()
-    
+    elif(options.remove_course):
+        manager.removeCourse(options.remove_course)
+    else:
+        parser.help()
+        print("\n")
+        manager.getTasks()
+
     manager.save()
-     

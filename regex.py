@@ -7,5 +7,6 @@ courseIdRe = re.compile("[A-Z]{3}-\d{5}")
 def checkDate(date):
     return dateRe.search(date)
 
+
 def checkCourseID(courseID):
     return courseIdRe.search(courseID)
