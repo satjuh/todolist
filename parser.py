@@ -16,7 +16,7 @@ def parse():
     parser.add_option(
                         "-d",
                         "--dotask",
-                        nargs=2,
+                        action="count",
                         help="Complete specified task [courseID, taskNumber]"
                     )
     parser.add_option(

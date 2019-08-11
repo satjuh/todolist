@@ -23,7 +23,7 @@ class ManageList:
         print("{: ^10} | {: ^35} | {: ^13} | {: ^3}".format(*lines_names))
         for Course in self.data:
             if (len(self.data[Course]) == 0):
-                print("{} has no tasks.".format(Course))
+                print("{: ^10} | {: ^35}".format(Course, "has no tasks."))
             for task in self.data[Course]:
                 print(
                     "{: ^10} | {: ^35} | {: ^13} | {: ^3}".format(
@@ -36,15 +36,32 @@ class ManageList:
 
     # Complete the given task with course name and task number
     def completeTask(self, courseId):
-        print("CompleteTask")
-        if courseId[0] in self.data:
-            i = int(courseId[1]) - 1
-            self.data[courseId[0]].remove(self.data[courseId[0]][i])
-            print("Completed given task.")
-            return True
-        else:
-            print("No such course or tasknumber.")
-            return False
+        line_number = 1
+        for key in self.data:
+            print("{} | {}".format(line_number, key))
+            line_number = line_number + 1
+        while True:
+            course_number = int(input("  Which course??: "))
+            if course_number > 0 and course_number <= len(self.data):
+                break
+
+        courseName = list(self.data.keys())[course_number-1]
+        if len(self.data[courseName]) == 0:
+            print("No task to complete")
+            return
+
+        line_number = 1
+        for task in self.data[courseName]:
+            print("{} | {}".format(line_number, task.getName()))
+            line_number = line_number + 1
+
+        while True:
+            task_number = int(input("  Which task??: "))
+            if 0 < task_number <= len(self.data[courseName]):
+                break
+
+        del self.data[courseName][task_number - 1]
+        print("Succesfully removed task")
 
     # Add a course with to given course with "task" as description
     #   and given deadline
@@ -74,17 +91,6 @@ class ManageList:
                                                             taskDeadline[0],
                                                             taskDeadline[1]
                                                         ))
-
-    # Complete the given task
-    def doTask(self, courseIdNumber):
-        if courseIdNumber[0] in self.data:
-            if courseIdNumber[1] in self.data[courseIdNumber[0]]:
-                self.data[courseIdNumber[0]].remove(courseIdNumber[1])
-                return True
-            else:
-                return False
-        else:
-            return False
 
     # Adds a new course to the dict
     def addCourse(self, course):
